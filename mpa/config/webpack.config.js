@@ -17,7 +17,17 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(jpe?g|png|gif)$/,
+                test: /\.js$/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['env'],
+                        plugins: ['syntax-dynamic-import']
+                    }
+                }
+            },
+            {
+                test: /\.(jpe?g|png|gif|svg)$/,
                 use: [
                     {
                         loader: 'url-loader',

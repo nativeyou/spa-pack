@@ -1,18 +1,18 @@
 const path = require('path');
 const webpack = require('webpack');
-const config = require('./webpack.config.js');
+const webpackConfig = require('./webpack.config.js');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 const utils = require('./utils');
-const htmls = utils.getHtml('src/pages')
+const htmls = utils.getHtml('src/pages');
 const baseDir = path.join(__dirname, '..');
 
 // 生产模式
-config.mode = 'production';
+webpackConfig.mode = 'production';
 
-// css压缩
-config.module.rules = config.module.rules.concat(
+// modlue 配置
+webpackConfig.module.rules = webpackConfig.module.rules.concat(
     [
         {
             test: /\.css$/,
@@ -21,6 +21,14 @@ config.module.rules = config.module.rules.concat(
                     {
                         loader: 'css-loader',
                     },
+                    {
+                        loader:'postcss-loader',
+                        options: {
+                            config: {
+                                path: './config/postcss.config.js'
+                            }
+                        }
+                    }
                 ],
                 fallback: "style-loader",
                 publicPath:'../',
@@ -32,6 +40,14 @@ config.module.rules = config.module.rules.concat(
                 use: [
                     {
                         loader: 'css-loader',
+                    },
+                    {
+                        loader:'postcss-loader',
+                        options: {
+                            config: {
+                                path: './config/postcss.config.js'
+                            }
+                        }
                     },
                     {
                         loader: 'sass-loader',
@@ -52,7 +68,7 @@ config.module.rules = config.module.rules.concat(
 );
 
 // 抽取公共模块
-config.optimization = {
+webpackConfig.optimization = {
     splitChunks: {
         cacheGroups: {
             vendor: {
@@ -71,12 +87,13 @@ config.optimization = {
     }
 };
 
-config.plugins = [
+webpackConfig.plugins = [
     new CleanWebpackPlugin(['dist'], path.resolve(baseDir)),
     new ExtractTextWebpackPlugin({filename: 'css/[name].[hash:8].css', allChunks: true})
 ].concat(htmls);
 
-webpack(config, function (err, stats) {
+// node 执行
+webpack(webpackConfig, function (err, stats) {
     if (err) {
         console.error(err);
         return;
