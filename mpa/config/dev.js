@@ -4,9 +4,6 @@ const webpackConfig = require('./webpack.config');
 const WebpackDevServer = require('webpack-dev-server');
 const open = require('opn');
 
-const utils = require('./utils');
-const htmls = utils.getHtml('src/pages');
-
 const options = {
     host: config.ip,
     port: config.port,
@@ -83,7 +80,7 @@ const devPlugins = [
     new webpack.HotModuleReplacementPlugin()
 ]
 
-webpackConfig.plugins = devPlugins.concat(htmls);
+webpackConfig.plugins = webpackConfig.plugins.concat(devPlugins);
 
 WebpackDevServer.addDevServerEntrypoints(webpackConfig, options);
 

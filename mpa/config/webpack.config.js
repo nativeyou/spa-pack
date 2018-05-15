@@ -2,6 +2,7 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+
 const utils = require('./utils');
 const entres = utils.getEntry('src/pages');
 const htmls = utils.getHtml('src/pages')
@@ -44,5 +45,6 @@ module.exports = {
                 use: 'file-loader'
             }
         ]
-    }
+    },
+    plugins: [...htmls]
 }

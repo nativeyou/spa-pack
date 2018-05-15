@@ -4,8 +4,7 @@ const webpackConfig = require('./webpack.config.js');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
-const utils = require('./utils');
-const htmls = utils.getHtml('src/pages');
+
 const baseDir = path.join(__dirname, '..');
 
 // 生产模式
@@ -87,10 +86,12 @@ webpackConfig.optimization = {
     }
 };
 
-webpackConfig.plugins = [
-    new CleanWebpackPlugin(['dist'], path.resolve(baseDir)),
-    new ExtractTextWebpackPlugin({filename: 'css/[name].[hash:8].css', allChunks: true})
-].concat(htmls);
+webpackConfig.plugins = webpackConfig.plugins.concat(
+    [
+        new CleanWebpackPlugin(['dist'], path.resolve(baseDir)),
+        new ExtractTextWebpackPlugin({filename: 'css/[name].[hash:8].css', allChunks: true})
+    ]
+);
 
 // node 执行
 webpack(webpackConfig, function (err, stats) {
