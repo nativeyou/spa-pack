@@ -17,6 +17,7 @@ const options = {
         ignored: /node_modules/
     }
 };
+
 // 生产模式
 webpackConfig.mode = 'development';
 
