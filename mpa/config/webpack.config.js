@@ -11,7 +11,7 @@ const baseDir = path.join(__dirname, '..');
 module.exports = {
     entry: entres,
     output: {
-        filename: 'js/[name].[hash:8].js',
+        filename: utils.getFilesName().js,
         path: path.resolve(baseDir, 'dist'),
         publicPath: './'
     },
@@ -34,8 +34,8 @@ module.exports = {
                         loader: 'url-loader',
                         options: {
                             limit: 20480,
-                            outputPath: 'img/',
-                            name: '[name].[hash:8].[ext]'
+                            outputPath: utils.getOutputPath().img,
+                            name: utils.getFilesName().assets
                         }
                     }
                 ]

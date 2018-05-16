@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'development';
+
 const webpack = require('webpack');
 const config = require('./config');
 const webpackConfig = require('./webpack.config');
@@ -77,7 +79,6 @@ webpackConfig.module.rules = webpackConfig.module.rules.concat(
 );
 
 const devPlugins = [
-    new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
 ]
 

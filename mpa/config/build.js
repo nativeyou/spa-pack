@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'production';
+
 const path = require('path');
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config.js');
@@ -5,6 +7,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
+const utils = require('./utils');
 const baseDir = path.join(__dirname, '..');
 
 // 生产模式
@@ -89,7 +92,7 @@ webpackConfig.optimization = {
 webpackConfig.plugins = webpackConfig.plugins.concat(
     [
         new CleanWebpackPlugin(['dist'], path.resolve(baseDir)),
-        new ExtractTextWebpackPlugin({filename: 'css/[name].[hash:8].css', allChunks: true})
+        new ExtractTextWebpackPlugin({filename:  utils.getFilesName().css, allChunks: true})
     ]
 );
 

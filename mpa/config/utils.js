@@ -2,9 +2,11 @@ const path = require('path');
 const webpack = require('webpack');
 const glob = require('glob');
 const fs = require('fs');
+const config = require('./config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const baseDir = path.join(__dirname, '..');
+const isDev = process.env.NODE_ENV === 'production' ? false : true;
 
 /**
  * 获取入口文件
@@ -66,7 +68,42 @@ const getHtml = function(pageDir){
     return pagesHtml;
 }
 
+/**
+ * 获取资源路径
+ */
+const getOutputPath = function(){
+    let defaultPath = {
+        js:'./js',
+        css:'./css',
+        img:'./assets/img/',
+        font:'./assets/font/',
+    };
+    return Object.assign(defaultPath, config.outputPath ? config.outputPath : {});
+}
+
+/**
+ * 获取资源名称
+ */
+const getFilesName = function(){
+    const output = getOutputPath();
+    if(isDev){
+        return {
+            js:path.posix.join(output.js,'[name].js'),
+            css:path.posix.join(output.css,'[name].css'),
+            assets:'[name].[ext]',
+        }
+    } else {
+        return {
+            js:path.posix.join(output.js,'[name]'+(config.hash?'.[chunkhash:8]':'')+'.js'),
+            css:path.posix.join(output.css,'[name]'+(config.hash?'.[contenthash:8]':'')+'.css'),
+            assets:'[name]'+(config.hash?'.[hash:8]':'')+'.[ext]',
+        }
+    }
+};
+
 module.exports = {
     getEntry: getEntry,
-    getHtml: getHtml
+    getHtml: getHtml,
+    getOutputPath: getOutputPath,
+    getFilesName: getFilesName
 };
