@@ -40,18 +40,21 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(eot|ttf|woff|svg)$/,
-                use: 'file-loader'
+                test: /\.(eot|ttf|woff)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 10000,
+                            outputPath: utils.getOutputPath().font,
+                            name: utils.getFilesName().assets
+                        }
+                    }
+                ]
             }
         ]
     },
     plugins: [
-        new HzHtmlWebpackPlugin({
-            publicPath: './',
-            filename: utils.getFilesName().hzPlugin,
-            js: utils.getOtherJsFile(),
-            css:utils.getOtherCssFile()
-        }), 
         ...htmls
     ]
 }
