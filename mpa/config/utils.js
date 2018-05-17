@@ -91,19 +91,31 @@ const getFilesName = function(){
             js:path.posix.join(output.js,'[name].js'),
             css:path.posix.join(output.css,'[name].css'),
             assets:'[name].[ext]',
+            hzPlugin:'[name].[ext]'
         }
     } else {
         return {
             js:path.posix.join(output.js,'[name]'+(config.hash?'.[chunkhash:8]':'')+'.js'),
             css:path.posix.join(output.css,'[name]'+(config.hash?'.[contenthash:8]':'')+'.css'),
             assets:'[name]'+(config.hash?'.[hash:8]':'')+'.[ext]',
+            hzPlugin:'[name]'+(config.hash?'.[hash:8]':'')+'.[ext]'
         }
     }
+};
+
+const getOtherJsFile = function(){
+    return null;
+};
+
+const getOtherCssFile = function(){
+    return null;
 };
 
 module.exports = {
     getEntry: getEntry,
     getHtml: getHtml,
     getOutputPath: getOutputPath,
-    getFilesName: getFilesName
+    getFilesName: getFilesName,
+    getOtherJsFile: getOtherJsFile,
+    getOtherCssFile: getOtherCssFile
 };

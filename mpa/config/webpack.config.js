@@ -1,7 +1,6 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+const HzHtmlWebpackPlugin = require('hz-html-webpack-plugin');
 
 const utils = require('./utils');
 const entres = utils.getEntry('src/pages');
@@ -46,5 +45,13 @@ module.exports = {
             }
         ]
     },
-    plugins: [...htmls]
+    plugins: [
+        new HzHtmlWebpackPlugin({
+            publicPath: './',
+            filename: utils.getFilesName().hzPlugin,
+            js: utils.getOtherJsFile(),
+            css:utils.getOtherCssFile()
+        }), 
+        ...htmls
+    ]
 }

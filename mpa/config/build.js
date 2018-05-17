@@ -4,7 +4,6 @@ const path = require('path');
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config.js');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
 const utils = require('./utils');
