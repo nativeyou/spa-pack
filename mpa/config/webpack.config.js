@@ -1,6 +1,5 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const HzHtmlWebpackPlugin = require('hz-html-webpack-plugin');
 const TestWebpackPlugin = require('./plugin/index');
 
 const utils = require('./utils');
@@ -13,7 +12,7 @@ module.exports = {
     output: {
         filename: utils.getFilesName().js,
         path: path.resolve(baseDir, 'dist'),
-        publicPath: './'
+        publicPath: utils.getPublicPath('./')
     },
     module: {
         rules: [
@@ -57,6 +56,11 @@ module.exports = {
     },
     plugins: [
        ...htmls,
-       new TestWebpackPlugin({text: 'hello world!'})
+       new TestWebpackPlugin({
+            publicPath: utils.getPublicPath('./'),
+            filename: utils.getFilesName().hzPlugin,
+            js: utils.getOtherJsFile(),
+            css: utils.getOtherCssFile(),
+        })
     ]
 }

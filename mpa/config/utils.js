@@ -9,6 +9,25 @@ const baseDir = path.join(__dirname, '..');
 const isDev = process.env.NODE_ENV === 'production' ? false : true;
 
 /**
+ * 获取输出地址
+ * @param {string} dir 
+ */
+const getPublicPath = function(dir){
+    let _dir = '';
+    isDev || config.cdn === '' 
+    ? _dir = dir
+    : (
+        config.cdn.charAt(config.cdn.length - 1) !== '/'
+        ? (
+            config.cdn += '/',
+            _dir = config.cdn
+        )
+        : ''
+    ) 
+    return _dir
+}
+
+/**
  * 获取入口文件
  * @param {String} pageDir 
  */
@@ -104,7 +123,11 @@ const getFilesName = function(){
 };
 
 const getOtherJsFile = function(){
-    return null;
+    let jsAssets = [];
+    // jsAssets.push('http://ws-www.hantinghotels.com/wa/site/m_huazhu_track.js');
+    // jsAssets.push('http://res.wx.qq.com/open/js/jweixin-1.0.0.js');
+
+    return jsAssets;
 };
 
 const getOtherCssFile = function(){
@@ -113,6 +136,7 @@ const getOtherCssFile = function(){
 
 module.exports = {
     getEntry: getEntry,
+    getPublicPath: getPublicPath,
     getHtml: getHtml,
     getOutputPath: getOutputPath,
     getFilesName: getFilesName,
