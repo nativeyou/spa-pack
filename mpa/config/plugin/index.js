@@ -1,5 +1,6 @@
 /**
  * 用于传统资源加载问题
+ * htmlwebpackplugin 插件的拓展
  */
 
 const nodePath = require('path');
@@ -7,7 +8,7 @@ const nodeFs = require('fs');
 const _ = require('lodash');
 const loaderUtils = require('loader-utils');
 
-class TestWebpackPlugin {
+class HtmlWebpackExpandPlugin {
     constructor(options){
         // 初始化参数
         this.options = _.extend({
@@ -21,8 +22,8 @@ class TestWebpackPlugin {
     apply(compiler){
         const self = this;
         if(compiler.hooks){
-            compiler.hooks.compilation.tap('TestWebpackPlugin', (compilation) => {
-                compilation.hooks.htmlWebpackPluginBeforeHtmlProcessing.tapAsync('TestWebpackPlugin', (htmlPluginData, callBack)=>{
+            compiler.hooks.compilation.tap('HtmlWebpackExpandPlugin', (compilation) => {
+                compilation.hooks.htmlWebpackPluginBeforeHtmlProcessing.tapAsync('HtmlWebpackExpandPlugin', (htmlPluginData, callBack)=>{
                     // 处理html资源及a链接路径
                     htmlPluginData.html = self.resetPath(htmlPluginData.html, htmlPluginData.plugin.options.template, compilation);
                     // 其他额外资源
@@ -129,4 +130,4 @@ class TestWebpackPlugin {
     }
 }
 
-module.exports = TestWebpackPlugin;
+module.exports = HtmlWebpackExpandPlugin;

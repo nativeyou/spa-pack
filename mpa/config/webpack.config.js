@@ -1,6 +1,6 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const TestWebpackPlugin = require('./plugin/index');
+const HtmlWebpackExpandPlugin = require('./plugin/index');
 
 const utils = require('./utils');
 const entres = utils.getEntry('src/pages');
@@ -56,7 +56,7 @@ module.exports = {
     },
     plugins: [
        ...htmls,
-       new TestWebpackPlugin({
+       new HtmlWebpackExpandPlugin({
             publicPath: utils.getPublicPath('./'),
             filename: utils.getFilesName().hzPlugin,
             js: utils.getOtherJsFile(),

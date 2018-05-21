@@ -1,5 +1,4 @@
 const config = {
-    spa: false,
     ip: 'localhost',
     port: '9000',
     name: 'gaoxm-pack',

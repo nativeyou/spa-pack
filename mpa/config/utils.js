@@ -34,18 +34,27 @@ const getPublicPath = function(dir){
 const getEntry = function(pageDir){
     let entryObj = {};
     let pages;
+    let shareFile;
 
     let pagePath = path.resolve(baseDir,pageDir,'**') + '/*.html';
     pages = glob.sync(pagePath, {
         ignore: '**/node_modules/**'
     });
 
+    if(config.share){
+        // 分享添加
+        shareFile = glob.sync('./**/hzShare.js', {
+            ignore: '**/node_modules/**'
+        })[0];
+    }
+
     pages.map(function(item, index){
         let pathInfo = path.posix.parse(item);
         if(!pathInfo) return;
         let jsPath = item.replace(pathInfo.ext, '.js')
         if(!fs.existsSync(path.resolve(baseDir, jsPath))) return;
-        let entry = [jsPath]
+        let entry = [jsPath];
+        if(config.share && shareFile) entry.unshift(shareFile);
         entryObj[pathInfo.name] = entry;
     })
 
