@@ -43,7 +43,7 @@ const getEntry = function(pageDir){
 
     if(config.share){
         // 分享添加
-        shareFile = glob.sync('./**/hzShare.js', {
+        shareFile = glob.sync('./**/share.js', {
             ignore: '**/node_modules/**'
         })[0];
     }
@@ -119,14 +119,14 @@ const getFilesName = function(){
             js:path.posix.join(output.js,'[name].js'),
             css:path.posix.join(output.css,'[name].css'),
             assets:'[name].[ext]',
-            hzPlugin:'[name].[ext]'
+            plugin:'[name].[ext]'
         }
     } else {
         return {
             js:path.posix.join(output.js,'[name]'+(config.hash?'.[chunkhash:8]':'')+'.js'),
             css:path.posix.join(output.css,'[name]'+(config.hash?'.[contenthash:8]':'')+'.css'),
             assets:'[name]'+(config.hash?'.[hash:8]':'')+'.[ext]',
-            hzPlugin:'[name]'+(config.hash?'.[hash:8]':'')+'.[ext]'
+            plugin:'[name]'+(config.hash?'.[hash:8]':'')+'.[ext]'
         }
     }
 };

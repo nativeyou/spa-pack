@@ -58,7 +58,7 @@ module.exports = {
        ...htmls,
        new HtmlWebpackExpandPlugin({
             publicPath: utils.getPublicPath('./'),
-            filename: utils.getFilesName().hzPlugin,
+            filename: utils.getFilesName().plugin,
             js: utils.getOtherJsFile(),
             css: utils.getOtherCssFile(),
         })

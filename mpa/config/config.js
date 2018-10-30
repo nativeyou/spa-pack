@@ -1,6 +1,6 @@
 const config = {
     ip: 'localhost',
-    port: '9000',
+    port: '1234',
     name: 'gaoxm-pack',
     hot: false,
     hash: true,

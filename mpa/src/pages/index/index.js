@@ -3,8 +3,8 @@ import $ from 'jquery';
 import * as utils from '../../common/js/utils';
 
 // 分享设置
-if(window.hzShare){
-    hzShare({
+if(window.share){
+    share({
         title:'默认标题',
         desc:'默认描述',
         link:window.location.href,
